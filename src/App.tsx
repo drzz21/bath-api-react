@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
+import {Navbar} from './components/Navbar'
 import './App.css'
 
 function App() {
@@ -7,7 +8,7 @@ function App() {
 
   return (
     <div className="App">
-      <button className="btn">CHECK IN</button>
+      <Navbar/>
     </div>
   )
 }
