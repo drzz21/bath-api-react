@@ -14,16 +14,29 @@ export const Navbar = () => {
 	// }
 
 	function onFileInputChange(e) {
-		const reader = new FileReader();
-		const selectedFile = e.target.files[0];
-		if (selectedFile) {
-			reader.readAsDataURL(selectedFile);
-		}
-		reader.onload = (readerEvent) => {
-			if (selectedFile.type.includes('image')) {
-				setImagePreview([{ img: readerEvent.target.result, key: '1' }]);
+		setImagePreview([]);
+
+		for (let i = 0; i < e.target.files.length; i++) {
+			let reader = new FileReader();
+			const selectedFile = e.target.files[i];
+			if (selectedFile) {
+				reader.readAsDataURL(selectedFile);
 			}
-		};
+			reader.onloadend = (readerEvent) => {
+				if (selectedFile.type.includes('image')) {
+					setImagePreview((prev) => [
+						...prev,
+						{
+							img: readerEvent.target.result,
+							key: crypto.randomUUID(),
+						},
+					]);
+				}
+			};
+		}
+
+		// console.log(arrFiles);
+		// 		setImagePreview(arrFiles);
 	}
 
 	return (
@@ -87,11 +100,18 @@ export const Navbar = () => {
 									/>
 								))}
 							</div>
+						
 							<button
-								className="btn mt-2"
+								className="btn mt-2 mr-2"
 								onClick={() => handleFile()}
 							>
 								add files
+							</button>
+							<button
+								className="btn mt-2"
+								onClick={() => setImagePreview([])}
+							>
+								clear files
 							</button>
 							<div className="modal-action">
 								<label htmlFor="my-modal-6" className="btn">
