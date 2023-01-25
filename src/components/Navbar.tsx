@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 export const Navbar = () => {
 	const refFile = useRef();
 	const [imagePreview, setImagePreview] = useState([]);
+	const [locationCords, setLocationCords] = useState({ x: 0, y: 0 });
 
 	function handleFile() {
 		refFile.current.click();
@@ -37,6 +38,15 @@ export const Navbar = () => {
 
 		// console.log(arrFiles);
 		// 		setImagePreview(arrFiles);
+	}
+
+	function currentLocation() {
+		navigator.geolocation.getCurrentPosition((position) => {
+			const { latitude, longitude } = position.coords;
+			// Show a map centered at latitude / longitude.
+console.log(latitude, longitude);
+			setLocationCords({ x: latitude, y: longitude });
+		});
 	}
 
 	return (
@@ -90,6 +100,7 @@ export const Navbar = () => {
 								multiple
 								hidden
 							/>{' '}
+							coordenadas: {locationCords.x}{locationCords.y}
 							<div className="grid gap-4 grid-cols-4">
 								{imagePreview.map((el) => (
 									<img
@@ -101,17 +112,30 @@ export const Navbar = () => {
 								))}
 							</div>
 							<button
-								className="btn mt-2 mr-2"
+								className="btn mt-2 mr-2 btn-sm"
 								onClick={() => handleFile()}
 							>
 								add files
 							</button>
 							<button
-								className="btn mt-2"
+								className="btn mt-2 btn-sm mr-2 "
 								onClick={() => setImagePreview([])}
 							>
 								clear files
 							</button>
+							<button
+								className="btn mt-2 btn-sm"
+								onClick={() => currentLocation()}
+							>
+								add location
+							</button>
+							<iframe
+								className="mt-2"
+								width="340"
+								height="190"
+								src={`https://www.openstreetmap.org/export/embed.html?bbox=${locationCords.x}%2C-${locationCords.y}&amp;layer=mapnik&amp;marker=20.139880513540504%2C-101.15318298339844`}
+								style={{ border: '1px solid black' }}
+							></iframe>
 							<div className="modal-action">
 								<label htmlFor="my-modal-6" className="btn">
 									{' '}
@@ -265,7 +289,7 @@ export const Navbar = () => {
 							<li>
 								<a className="justify-between">
 									Profile
-									<span className="badge">New</span>
+									
 								</a>
 							</li>
 							<li>
