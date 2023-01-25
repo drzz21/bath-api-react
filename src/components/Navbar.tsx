@@ -100,7 +100,6 @@ export const Navbar = () => {
 									/>
 								))}
 							</div>
-						
 							<button
 								className="btn mt-2 mr-2"
 								onClick={() => handleFile()}
@@ -133,7 +132,7 @@ export const Navbar = () => {
 					<div className="dropdown dropdown-end mr-2">
 						<div className="indicator">
 							<span className="indicator-item badge badge-sm badge-secondary">
-								3
+								2
 							</span>
 							<button className="btn">
 								<svg
@@ -167,9 +166,87 @@ export const Navbar = () => {
 
 						<div
 							tabIndex={0}
-							className="mt-4 card card-compact dropdown-content w-52 bg-base-300 shadow"
+							className="mt-4 card card-compact dropdown-content w-80 bg-base-300 shadow translate-x-12"
 						>
-							<div className="card-body">content here</div>
+							<div className="p-4">
+								<div className="post1 flex flex-col ">
+									<div className="flex flex-row justify-evenly  mb-2">
+										<div className="mr-3 w-1/4">
+											<img
+												className="rounded-full"
+												src="https://placeimg.com/60/60/people"
+											/>
+										</div>
+										<div className="flex flex-col justify-center w-3/4">
+											<div className="text-lg w-full font-medium">
+												Mike Ortega is pooping
+											</div>
+											<div className="badge w-full">
+												5 minutes ago
+											</div>
+										</div>
+									</div>
+
+									<div className="btn-group w-full justify-center">
+										<button className="btn gap-2 w-1/2 btn-sm btn-secondary">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												className="h-6 w-6"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth="2"
+													d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+												/>
+											</svg>
+											LIKE
+										</button>
+										<button className="btn gap-2 w-1/2 btn-sm">
+											COMMENT
+										</button>
+									</div>
+								</div>
+
+								<div className="divider"></div>
+
+								<div className="post1 flex flex-col ">
+									<div className="flex flex-row justify-evenly  mb-2">
+										<div className="mr-3 w-1/4">
+											<img
+												className="rounded-full"
+												src="https://placeimg.com/60/60/people"
+											/>
+										</div>
+										<div className="flex flex-col justify-center w-3/4">
+											<div className="text-lg w-full font-medium">
+												Guillermo Sámano commented your
+												post:
+											</div>
+
+											<span
+												style={{ fontStyle: 'italic' }}
+												className="bg-gray-600 rounded-md mb-2 text-center"
+											>
+												"que rica caca :9"
+											</span>
+
+											<div className="badge w-full">
+												16 minutes ago
+											</div>
+										</div>
+									</div>
+
+									<div className="btn-group w-full justify-center">
+										<button className="btn gap-2 w-full btn-sm">
+											VIEW POST
+										</button>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div className="dropdown dropdown-end">
@@ -183,7 +260,7 @@ export const Navbar = () => {
 						</label>
 						<ul
 							tabIndex={0}
-							className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-300 rounded-box w-52"
+							className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-300 rounded-box w-52 "
 						>
 							<li>
 								<a className="justify-between">
