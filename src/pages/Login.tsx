@@ -1,11 +1,17 @@
-import React from 'react';
+import React,{useContext} from 'react';
+import { useAuth } from '../hooks/useAuth';
+import { AuthContext } from '../App';
 
 export const Login = () => {
+	const { isAuth,setIsAuth } = useContext(AuthContext);
 
-	const setAuth = () => {
-		localStorage.setItem('isAuth', 'true');
-	};
+	// const setAuth = () => {
+	// 	localStorage.setItem('isAuth', 'true');
+	// };
 
+	// const { isAuth, setIsAuth } = useAuth();
+
+	console.log({isAuth},'login');
 
 	return (
 		<div className="flex flex-row  justify-center min-h-screen mx-0">
@@ -38,7 +44,7 @@ export const Login = () => {
 							className="input input-bordered w-full max-w-xs input-md rounded-lg focus:outline-none focus:border-secondary"
 						/>
 					</div>
-					<button onClick={setAuth} className="btn btn-wide btn-secondary mt-2 rounded-full">
+					<button onClick={()=>setIsAuth(true)} className="btn btn-wide btn-secondary mt-2 rounded-full">
 						LOGIN
 					</button>
 				</div>

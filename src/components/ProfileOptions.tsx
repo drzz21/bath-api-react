@@ -1,12 +1,23 @@
-import React from 'react';
+import React,{useState,useContext} from 'react';
+import { AuthContext } from '../App';
+// import { useAuth } from '../hooks/useAuth';
 
 
 
 export const ProfileOptions = ({refDropdown}) => {
+	const { isAuth,setIsAuth } = useContext(AuthContext);
 
-	const setAuth = () => {
-		localStorage.setItem('isAuth', 'false');
-	};
+	// const { isAuth, setIsAuth } = useAuth();
+
+	// const setAuth = () => {
+	// 	setIsAuth(false)
+	// 	localStorage.setItem('isAuth', 'false');
+	// };
+
+	// const [isAuth, setIsAuth] = useState(true);
+
+	console.log({isAuth},'profileoptions');
+
 
 	return (
 		<>
@@ -25,7 +36,7 @@ export const ProfileOptions = ({refDropdown}) => {
 				<li>
 					<a>Settings</a>
 				</li>
-				<li onClick={setAuth}>
+				<li onClick={()=>setIsAuth(false)}>
 					<a>Logout</a>
 				</li>
 			</ul>
