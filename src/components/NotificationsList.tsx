@@ -1,16 +1,13 @@
 import React from 'react';
 
-export const NotificationsList = () => {
+export const NotificationsList = ({ refDropdown }) => {
 	return (
 		<>
 			<div className="indicator">
 				<span className="indicator-item badge badge-sm badge-secondary">
 					2
 				</span>
-				<button
-					// ref={refDropdown}
-					className="btn"
-				>
+				<button ref={refDropdown} className="btn">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						className="h-6 w-6"
