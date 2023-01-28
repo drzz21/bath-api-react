@@ -1,6 +1,13 @@
 import React from 'react';
 
+
+
 export const ProfileOptions = ({refDropdown}) => {
+
+	const setAuth = () => {
+		localStorage.setItem('isAuth', 'false');
+	};
+
 	return (
 		<>
 			<label tabIndex={0} className="btn btn-ghost btn-circle avatar" ref={refDropdown}>
@@ -18,7 +25,7 @@ export const ProfileOptions = ({refDropdown}) => {
 				<li>
 					<a>Settings</a>
 				</li>
-				<li>
+				<li onClick={setAuth}>
 					<a>Logout</a>
 				</li>
 			</ul>
