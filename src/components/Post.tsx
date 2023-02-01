@@ -1,10 +1,25 @@
-import React from 'react';
+import { useState, useRef } from 'react';
 
 export const Post = () => {
+	const [comments, setComments] = useState([]);
+	const refInputComment = useRef(null);
+
+	const addComment = (e) => {
+		e.preventDefault();
+		setComments((comments) => [
+			...comments,
+			{
+				time: Date.now(),
+				text: refInputComment.current.value,
+			},
+		]);
+		refInputComment.current.value = '';
+	};
+
 	return (
-		<div className="card m-5 w-3/5 flex-auto bg-base-200 shadow-xl">
+		<div className="card mt-4 w-1/2 flex-auto bg-base-200 shadow-xl">
 			<figure>
-				<img src="https://picsum.photos/900/300" alt="Shoes" />
+				<img src="https://picsum.photos/1000/300" alt="Shoes" />
 			</figure>
 			<div className="card-body">
 				<h2 className="card-title">Mike Ortega is pooping</h2>
@@ -36,11 +51,15 @@ export const Post = () => {
 								<img src="https://picsum.photos/6/6" />
 							</div>
 						</div>
-						<input
-							type="text"
-							placeholder="Insert comment..."
-							className="input input-bordered input-sm focus:outline-none input-secondary w-full bg-base-300"
-						/>
+						<form onSubmit={addComment} className="w-full">
+							<input
+								ref={refInputComment}
+								type="text"
+								placeholder="Insert comment..."
+								className="input input-bordered input-sm focus:outline-none input-secondary w-full bg-base-300"
+							/>
+							<button hidden type="submit"></button>
+						</form>
 					</div>
 					<div className="chat chat-start">
 						<div className="chat-image avatar">
@@ -76,6 +95,25 @@ export const Post = () => {
 							<div className="text-sm">Cuando quieras 💩</div>
 						</div>
 					</div>
+					{comments.map((comment) => (
+						<div key={comment.time} className="chat chat-start">
+							<div className="chat-image avatar">
+								<div className="w-8 h-8 rounded-full">
+									<img src="https://picsum.photos/6/6" />
+								</div>
+							</div>
+
+							<div className="chat-bubble py-0.5">
+								<span className="text-xs font-bold mr-1">
+									Miguel Ortega
+								</span>
+								<span className="text-xs font-bold opacity-50">
+									12:45
+								</span>
+								<div className="text-sm">{comment.text}</div>
+							</div>
+						</div>
+					))}
 				</div>
 			</div>
 		</div>

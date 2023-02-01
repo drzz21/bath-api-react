@@ -6,7 +6,7 @@ import { ProfileOptions } from './ProfileOptions';
 export const Navbar = () => {
 	return (
 		<>
-			<div className="navbar bg-base-300 rounded-lg">
+			<div className="navbar bg-base-300 rounded-lg fixed z-10">
 				<div className="flex-1">
 					<a className="btn btn-ghost normal-case text-xl">
 						Bath API
