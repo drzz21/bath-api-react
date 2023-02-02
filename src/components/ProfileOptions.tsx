@@ -5,18 +5,7 @@ import { AuthContext } from '../App';
 
 
 export const ProfileOptions = ({refDropdown}) => {
-	const { isAuth,setIsAuth } = useContext(AuthContext);
-
-	// const { isAuth, setIsAuth } = useAuth();
-
-	// const setAuth = () => {
-	// 	setIsAuth(false)
-	// 	localStorage.setItem('isAuth', 'false');
-	// };
-
-	// const [isAuth, setIsAuth] = useState(true);
-
-	console.log({isAuth},'profileoptions');
+	const { setIsAuth } = useContext(AuthContext);
 
 
 	return (

@@ -2,18 +2,26 @@ import { useState, useRef } from 'react';
 
 export const Post = () => {
 	const [comments, setComments] = useState([]);
-	const refInputComment = useRef(null);
+	const [amountCommentsToShow, setAmountCommentsToShow] = useState(3);
+	const refInputComment = useRef({ value: '' });
+
+	const commentsToShow = comments
+		.slice()
+		.reverse()
+		.slice(0, amountCommentsToShow);
 
 	const addComment = (e) => {
 		e.preventDefault();
-		setComments((comments) => [
-			...comments,
-			{
-				time: Date.now(),
-				text: refInputComment.current.value,
-			},
-		]);
-		refInputComment.current.value = '';
+
+		const comment = refInputComment.current.value;
+		if (comment.length) {
+			setComments((comments) => [
+				...comments,
+				{ time: Date.now(), text: comment },
+			]);
+
+			refInputComment.current.value = '';
+		}
 	};
 
 	return (
@@ -42,7 +50,12 @@ export const Post = () => {
 						</svg>
 						LIKE
 					</button>
-					<button className="btn gap-2 w-1/2 btn-sm">COMMENT</button>
+					<button
+						className="btn gap-2 w-1/2 btn-sm"
+						onClick={() => refInputComment.current.focus()}
+					>
+						COMMENT
+					</button>
 				</div>
 				<div className="bg-base-300 p-4 rounded-xl">
 					<div className="flex content-center items-center gap-2">
@@ -61,41 +74,7 @@ export const Post = () => {
 							<button hidden type="submit"></button>
 						</form>
 					</div>
-					<div className="chat chat-start">
-						<div className="chat-image avatar">
-							<div className="w-8 h-8 rounded-full">
-								<img src="https://picsum.photos/6/6" />
-							</div>
-						</div>
-
-						<div className="chat-bubble py-0.5">
-							<span className="text-xs font-bold mr-1">
-								Guillermo Sámano
-							</span>
-							<span className="text-xs font-bold opacity-50">
-								12:45
-							</span>
-							<div className="text-sm">Y no invitas 😔</div>
-						</div>
-					</div>
-					<div className="chat chat-start">
-						<div className="chat-image avatar">
-							<div className="w-8 h-8 rounded-full">
-								<img src="https://picsum.photos/6/6" />
-							</div>
-						</div>
-
-						<div className="chat-bubble py-0.5">
-							<span className="text-xs font-bold mr-1">
-								Miguel Ortega
-							</span>
-							<span className="text-xs font-bold opacity-50">
-								12:45
-							</span>
-							<div className="text-sm">Cuando quieras 💩</div>
-						</div>
-					</div>
-					{comments.map((comment) => (
+					{commentsToShow.map((comment) => (
 						<div key={comment.time} className="chat chat-start">
 							<div className="chat-image avatar">
 								<div className="w-8 h-8 rounded-full">
@@ -114,6 +93,16 @@ export const Post = () => {
 							</div>
 						</div>
 					))}
+					{commentsToShow.length < comments.length && (
+						<div
+							onClick={() =>
+								setAmountCommentsToShow((amount) => amount + 3)
+							}
+							className="text-center link bg-base-100 rounded-lg text-sm mt-1"
+						>
+							Load more comments...
+						</div>
+					)}
 				</div>
 			</div>
 		</div>
