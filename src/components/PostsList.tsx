@@ -23,7 +23,7 @@ export const PostsList = () => {
 
 	return (
 		<>
-			<div className="flex flex-col pt-16 justify-center items-center w-full">
+			<div className="flex flex-col justify-center items-center w-full">
 				{/* <Post /> */}
 				{posts.map((post) => (<Post key={post}/>))}
 			</div>
