@@ -1,10 +1,13 @@
 import { useState, useRef } from 'react';
 
-export const Post = ({title,description,user:{name,lastname}}) => {
+export const Post = ({
+	title,
+	description
+	// user: { name = 'Test', lastname = 'Test' },
+}) => {
 	const [comments, setComments] = useState([]);
 	const [amountCommentsToShow, setAmountCommentsToShow] = useState(3);
 	const refInputComment = useRef({ value: '' });
-	
 
 	const commentsToShow = comments
 		.slice()
@@ -26,12 +29,14 @@ export const Post = ({title,description,user:{name,lastname}}) => {
 	};
 
 	return (
-		<div className="card mt-4 w-1/2 flex-auto bg-base-200 shadow-xl">
+		<div className="card mt-4 w-1/2 flex-auto bg-base-100 shadow-xl">
 			<figure>
 				<img src="https://picsum.photos/1000/300" alt="Shoes" />
 			</figure>
 			<div className="card-body">
-				<h2 className="card-title">{name+' '+lastname}</h2>
+				<h2 className="card-title">
+					{/* {name + ' ' + lastname} */}
+					</h2>
 				<p>{description}</p>
 				<div className="btn-group w-full justify-start">
 					<button className="btn gap-2 w-1/2 btn-sm btn-secondary">

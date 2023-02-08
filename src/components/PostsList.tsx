@@ -1,17 +1,30 @@
 import { useEffect, useState, useContext } from 'react';
 import { Post } from './Post';
 import { useQuery } from '@tanstack/react-query';
-import { getAllPostsFn } from '../axios/api';
+import { getAllPostsFn,getMyPostsFn } from '../axios/api';
 import { AuthContext } from '../App';
 
-export const PostsList = () => {
+export const PostsList = ({ activeTab }) => {
 	const { token } = useContext(AuthContext);
 
-	const loadPostsQuery = useQuery({
+	const loadAllPostsQuery = useQuery({
 		queryKey: ['posts'],
 		queryFn: () => getAllPostsFn(token),
 	});
 
+	const loadMyPostsQuery = useQuery({
+		queryKey: ['my-posts'],
+		queryFn: () => getMyPostsFn(token),
+	});
+
+
+	const options = {
+		'1': loadAllPostsQuery.data ?? [],
+		'2': loadMyPostsQuery.data ?? [],
+	};
+
+
+	
 
 	// const handleScroll = () => {
 	// 	const { scrollHeight, scrollTop, clientHeight } =
@@ -31,8 +44,8 @@ export const PostsList = () => {
 
 	return (
 		<>
-			<div className="flex flex-col justify-center items-center w-full">
-				{loadPostsQuery.data.map((post) => (
+			<div className="flex flex-col justify-center items-center w-full relative z-0">
+				{options[activeTab].map((post) => (
 					<Post key={post.id} {...post} />
 				))}
 			</div>

@@ -16,7 +16,7 @@ export const Dropdown = ({ children }) => {
 
 	return (
 		<div
-			className="dropdown dropdown-end mr-2"
+			className="dropdown dropdown-end mr-2 relative z-20"
 			onClick={handleClick}
 			onFocus={() => setStateDropdown(true)}
 			onBlur={() => setStateDropdown(false)}

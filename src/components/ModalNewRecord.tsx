@@ -28,6 +28,7 @@ export const ModalNewRecord = () => {
 			),
 			onSuccess:()=>{
 				queryClient.invalidateQueries(['posts']);
+				queryClient.invalidateQueries(['my-posts']);
 			}
 	});
 

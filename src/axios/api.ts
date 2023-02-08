@@ -20,10 +20,11 @@ export const getAllPostsFn = async (token) => {
 };
 
 
-export const getMyPostsFn = async () => {
+export const getMyPostsFn = async (token) => {
 	const response = await apiClient.get(`poops/get-mine`, {
 		headers: {
 			'Content-Type': 'multipart/form-data',
+			Authorization: `Bearer ${token}`
 		},
 	});
 	return response.data;
