@@ -1,21 +1,20 @@
-import React, { useRef,useContext } from 'react';
+import React, { useRef, useContext } from 'react';
 import { AuthContext } from '../App';
 import { useMutation } from '@tanstack/react-query';
 import { loginFn } from '../axios/api';
 
 export const Login = () => {
-	const { setIsAuth } = useContext(AuthContext);
+	const { setIsAuth, setToken } = useContext(AuthContext);
 	const refEmail = useRef<HTMLInputElement>('');
 	const refPassword = useRef<HTMLInputElement>(null);
 
 	const loginQuery = useMutation({
 		mutationFn: (objCredentials) => loginFn(objCredentials),
-		onSuccess: () => {
+		onSuccess: ({token}) => {
+			setToken(token);
 			setIsAuth(true);
 		},
-		onError: (error) => {
-			
-		},
+		onError: (error) => {},
 	});
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

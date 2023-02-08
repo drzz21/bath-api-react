@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react';
 
-export const Post = () => {
+export const Post = ({title,description,user:{name,lastname}}) => {
 	const [comments, setComments] = useState([]);
 	const [amountCommentsToShow, setAmountCommentsToShow] = useState(3);
 	const refInputComment = useRef({ value: '' });
+	
 
 	const commentsToShow = comments
 		.slice()
@@ -30,8 +31,8 @@ export const Post = () => {
 				<img src="https://picsum.photos/1000/300" alt="Shoes" />
 			</figure>
 			<div className="card-body">
-				<h2 className="card-title">Mike Ortega is pooping</h2>
-				<p>Una rica calabaza</p>
+				<h2 className="card-title">{name+' '+lastname}</h2>
+				<p>{description}</p>
 				<div className="btn-group w-full justify-start">
 					<button className="btn gap-2 w-1/2 btn-sm btn-secondary">
 						<svg

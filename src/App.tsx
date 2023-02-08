@@ -7,10 +7,10 @@ import { useAuth } from './hooks/useAuth';
 export const AuthContext = createContext({});
 
 function App() {
-	const { isAuth, setIsAuth } = useAuth();
+	const { isAuth, setIsAuth,setToken,token } = useAuth();
 	
 	return (
-		<AuthContext.Provider value={{isAuth,setIsAuth}}>
+		<AuthContext.Provider value={{isAuth,setIsAuth,setToken,token}}>
 			<AppRouter />
 		</AuthContext.Provider>
 	);

@@ -1,10 +1,35 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useContext } from 'react';
+import { useMutation,useQueryClient } from '@tanstack/react-query';
+import { AuthContext } from '../App';
+import { createPostFn } from '../axios/api';
 
 export const ModalNewRecord = () => {
+	const queryClient = useQueryClient();
+	const { token } = useContext(AuthContext);
+
 	const refFile = useRef();
+	const refPostTitle = useRef();
+	const refPostDescription = useRef();
+
 	const [imagePreview, setImagePreview] = useState([]);
 
 	const [locationCords, setLocationCords] = useState({ x: 0, y: 0 });
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		postMutation.mutate();
+	};
+
+	const postMutation = useMutation({
+		mutationFn: () =>
+			createPostFn(
+				{ title: refPostTitle.current.value, description: refPostDescription.current.value,latitude:locationCords.x,longitude:locationCords.y },
+				token
+			),
+			onSuccess:()=>{
+				queryClient.invalidateQueries(['posts']);
+			}
+	});
 
 	function handleFile() {
 		refFile.current.click();
@@ -48,10 +73,20 @@ export const ModalNewRecord = () => {
 	return (
 		<>
 			<input type="checkbox" id="my-modal-6" className="modal-toggle" />
-			<div className="modal modal-bottom sm:modal-middle">
+			<form
+				className="modal modal-bottom sm:modal-middle"
+				onSubmit={handleSubmit}
+			>
 				<div className="modal-box">
 					<h3 className="font-bold text-lg">Add new poop</h3>
+					<input
+						type="text"
+						ref={refPostTitle}
+						placeholder="Title"
+						className="input input-bordered input-secondary input-sm w-full"
+					/>
 					<textarea
+						ref={refPostDescription}
 						className="textarea textarea-secondary w-full mt-2"
 						placeholder="Description"
 					></textarea>
@@ -87,6 +122,7 @@ export const ModalNewRecord = () => {
 						clear files
 					</button>
 					<button
+					type='button'
 						className="btn mt-2 btn-sm"
 						onClick={() => currentLocation()}
 					>
@@ -104,17 +140,17 @@ export const ModalNewRecord = () => {
 							{' '}
 							Cancel{' '}
 						</label>
-						<label
-							htmlFor="my-modal-6"
+						<button
+							type="submit"
 							className="btn btn-secondary
 								"
 						>
 							{' '}
 							Ok!{' '}
-						</label>
+						</button>
 					</div>
 				</div>
-			</div>
+			</form>
 		</>
 	);
 };
