@@ -2,6 +2,7 @@ import React, { useRef, useContext } from 'react';
 import { AuthContext } from '../App';
 import { useMutation } from '@tanstack/react-query';
 import { loginFn } from '../axios/api';
+import { Link  } from 'react-router-dom';
 
 export const Login = () => {
 	const { setIsAuth, setToken } = useContext(AuthContext);
@@ -10,7 +11,7 @@ export const Login = () => {
 
 	const loginQuery = useMutation({
 		mutationFn: (objCredentials) => loginFn(objCredentials),
-		onSuccess: ({token}) => {
+		onSuccess: ({ token }) => {
 			setToken(token);
 			setIsAuth(true);
 		},
@@ -80,6 +81,12 @@ export const Login = () => {
 					>
 						LOGIN
 					</button>
+					<div className="text-center pt-4">
+						Don't have an account?{' '}
+						<Link to="/auth/sign-up" className="text-secondary font-semibold">
+							Sign up
+						</Link>
+					</div>
 				</form>
 			</div>
 		</div>

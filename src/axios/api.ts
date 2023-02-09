@@ -9,10 +9,19 @@ export const loginFn = async (credentials) => {
 	return response.data;
 };
 
+export const signUpFn = async (info) => {
+	const response = await apiClient.post(`users/sign-up`, info, {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+	return response.data;
+};
+
 export const getAllPostsFn = async (token) => {
 	const response = await apiClient.get(`poops/get-all`, {
 		headers: {
-			'Content-Type': 'multipart/form-data',
+			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`
 		},
 	});

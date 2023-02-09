@@ -16,10 +16,10 @@ export const Dashboard = () => {
 	return (
 		<>
 			<Navbar />
-			<div className="tabs tabs-boxed flex p-0 items-center content-center justify-center">
+			<div className="tabs tabs-boxed flex p-0 items-center content-center justify-center h-full">
 				<div
 					ref={tabRef}
-					className="sticky top-[66px] z-10 p-3 bg-base-200 w-full text-center shadow-md"
+					className="sticky top-[66px] z-10 p-3 bg-base-200 w-full text-center shadow-md h-full"
 				>
 					<a className="tab tab-active" name="tab-1" onClick={handleTab}>
 						All posts
