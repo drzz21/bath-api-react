@@ -45,7 +45,7 @@ export const Login = () => {
 									Email
 								</label>
 								<input
-									value="lddcb_5@hotmail.com"
+									// value="lddcb_5@hotmail.com"
 									ref={refEmail}
 									type="text"
 									placeholder="yourmail@mail.com"

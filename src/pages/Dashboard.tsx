@@ -14,7 +14,7 @@ export const Dashboard = () => {
 	};
 	
 	return (
-		<>
+		<div className='bg-base-200 min-h-screen'>
 			<Navbar />
 			<div className="tabs tabs-boxed flex p-0 items-center content-center justify-center h-full">
 				<div
@@ -30,6 +30,6 @@ export const Dashboard = () => {
 				</div>
 				<PostsList activeTab={activeTab} />
 			</div>
-		</>
+		</div>
 	);
 };

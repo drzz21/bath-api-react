@@ -29,7 +29,7 @@ export const Post = ({
 	};
 
 	return (
-		<div className="card mt-4 w-1/2 flex-auto bg-base-100 shadow-xl">
+		<div className="card w-1/2  bg-base-100 shadow-xl">
 			<figure>
 				<img src="https://picsum.photos/1000/300" alt="Shoes" />
 			</figure>

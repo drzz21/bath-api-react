@@ -44,7 +44,7 @@ export const PostsList = ({ activeTab }) => {
 
 	return (
 		<>
-			<div className="flex flex-col justify-center items-center w-full relative z-0">
+			<div className="flex flex-col justify-center gap-4 p-4 items-center w-full relative z-0 min-h-[600px]:">
 				{options[activeTab].map((post) => (
 					<Post key={post.id} {...post} />
 				))}
