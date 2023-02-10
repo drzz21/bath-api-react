@@ -1,11 +1,11 @@
 import React, { useRef, useContext } from 'react';
 import { AuthContext } from '../App';
-import { useMutation } from '@tanstack/react-query';
-import { loginFn } from '../axios/api';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { loginFn, myInfoFn } from '../axios/api';
 import { Link  } from 'react-router-dom';
 
 export const Login = () => {
-	const { setIsAuth, setToken } = useContext(AuthContext);
+	const { setIsAuth, setToken,setActualUser,token } = useContext(AuthContext);
 	const refEmail = useRef<HTMLInputElement>('');
 	const refPassword = useRef<HTMLInputElement>(null);
 
@@ -17,6 +17,8 @@ export const Login = () => {
 		},
 		onError: (error) => {},
 	});
+
+
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();

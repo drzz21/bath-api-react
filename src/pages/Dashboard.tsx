@@ -1,10 +1,16 @@
-import React, { useRef,useState } from 'react';
+import React, { useRef,useState,useContext } from 'react';
 import { Navbar } from '../components/Navbar';
 import { PostsList } from '../components/PostsList';
+import { AuthContext } from '../App';
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
+import { loginFn, myInfoFn } from '../axios/api';
 
 export const Dashboard = () => {
 	const tabRef = useRef(null);
 	const [activeTab, setActiveTab] = useState(1);
+
+	const { setIsAuth, setToken,setActualUser,token } = useContext(AuthContext);
+
 	const handleTab = (e) => {
 		setActiveTab(e.target.name.split('-')[1]);
 		tabRef.current.querySelectorAll('.tab').forEach((tab) => {
@@ -12,6 +18,16 @@ export const Dashboard = () => {
 		});
 		e.target.classList.add('tab-active');
 	};
+
+	const myInfoQuery = useQuery({
+		queryKey: ['todos'],
+		queryFn: ()=>myInfoFn(token),
+		onSuccess: (user) => {
+			setActualUser(user);
+		},
+		onError: (error) => {},
+		enabled: !!token,
+	});
 	
 	return (
 		<div className='bg-base-200 min-h-screen'>

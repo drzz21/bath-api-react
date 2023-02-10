@@ -1,5 +1,15 @@
 import apiClient from './axios';
 
+export const myInfoFn = async (token) => {
+	const response = await apiClient.get(`users/me`, {
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${token}`,
+		},
+	});
+	return response.data;
+};
+
 export const loginFn = async (credentials) => {
 	const response = await apiClient.post(`users/log-in`, credentials, {
 		headers: {
@@ -28,7 +38,7 @@ export const getAllPostsFn = async (token, pageParam) => {
 	return response.data;
 };
 
-export const getMyPostsFn = async (token,pageParam) => {
+export const getMyPostsFn = async (token, pageParam) => {
 	const response = await apiClient.get(`poops/get-mine?page=${pageParam}`, {
 		headers: {
 			'Content-Type': 'multipart/form-data',

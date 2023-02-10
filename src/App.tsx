@@ -7,7 +7,7 @@ import { useAuth } from './hooks/useAuth';
 export const AuthContext = createContext({});
 
 function App() {
-	const { isAuth, setIsAuth,setToken,token } = useAuth();
+	const { isAuth, setIsAuth,setToken,token,actualUser, setActualUser } = useAuth();
 	
 	return (
 		<AuthContext.Provider value={{isAuth,setIsAuth,setToken,token}}>
