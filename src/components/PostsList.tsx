@@ -1,51 +1,58 @@
 import { useEffect, useState, useContext } from 'react';
 import { Post } from './Post';
-import { useQuery } from '@tanstack/react-query';
-import { getAllPostsFn,getMyPostsFn } from '../axios/api';
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
+import { getAllPostsFn, getMyPostsFn } from '../axios/api';
 import { AuthContext } from '../App';
 
 export const PostsList = ({ activeTab }) => {
 	const { token } = useContext(AuthContext);
 
-	const loadAllPostsQuery = useQuery({
+	const {
+		data: infiniteData,
+		hasNextPage,
+		fetchNextPage,
+	} = useInfiniteQuery({
 		queryKey: ['posts'],
-		queryFn: () => getAllPostsFn(token),
+		queryFn: ({ pageParam = 1 }) => getAllPostsFn(token, pageParam),
+		getNextPageParam: ({ page, pages_amount }) => page + 1 > pages_amount ? false : page + 1,
 	});
 
-	const loadMyPostsQuery = useQuery({
+	const {
+		data: myInfiniteData,
+		hasNextPage : myHasNextPage,
+		fetchNextPage: myFetchNextPage,	
+	} = useInfiniteQuery({
 		queryKey: ['my-posts'],
-		queryFn: () => getMyPostsFn(token),
+		queryFn: ({ pageParam = 1 }) => getMyPostsFn(token, pageParam),
+		getNextPageParam: ({ page, pages_amount }) => page + 1 > pages_amount ? false : page + 1,
 	});
 
 
 	const options = {
-		'1': loadAllPostsQuery.data ?? [],
-		'2': loadMyPostsQuery.data ?? [],
+		'1': infiniteData?? [],
+		'2': myInfiniteData?? [],
 	};
 
+	const handleScroll = () => {
+		const { scrollHeight, scrollTop, clientHeight } =
+			document.documentElement;
+		if (scrollHeight - scrollTop === clientHeight) {
+			fetchNextPage();
+		}
+	};
 
-	
+	useEffect(() => {
+		window.addEventListener('scroll', handleScroll);
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
 
-	// const handleScroll = () => {
-	// 	const { scrollHeight, scrollTop, clientHeight } =
-	// 		document.documentElement;
-	// 	if (scrollHeight - scrollTop === clientHeight) {
-	// 		setPosts((posts)=>([...posts, crypto.randomUUID()]));
-	// 		// setPosts((posts)=>([...posts, crypto.randomUUID()]));
-	// 	}
-	// };
-
-	// useEffect(() => {
-	// 	window.addEventListener('scroll', handleScroll);
-	// 	return () => {
-	// 		window.removeEventListener('scroll', handleScroll);
-	// 	};
-	// }, []);
 
 	return (
 		<>
 			<div className="flex flex-col justify-center gap-4 p-4 items-center w-full relative z-0 min-h-[600px]:">
-				{options[activeTab].map((post) => (
+				{options[activeTab]?.pages?.flatMap(el=>el.poops).map((post) => (
 					<Post key={post.id} {...post} />
 				))}
 			</div>
