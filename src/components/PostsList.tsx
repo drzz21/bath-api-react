@@ -32,7 +32,10 @@ export const PostsList = ({ activeTab }) => {
 		queryKey: ['my-posts'],
 		queryFn: ({ pageParam = 1 }) => getMyPostsFn(token, pageParam),
 		getNextPageParam: ({ page, pages_amount }) => {
-			return page + 1 > pages_amount ? undefined : page + 1;
+			if (page + 1 > pages_amount) {
+				return undefined;
+			}
+			return page + 1;
 		},
 	});
 
@@ -48,8 +51,12 @@ export const PostsList = ({ activeTab }) => {
 		  const {scrollHeight, scrollTop, clientHeight} = e.target.scrollingElement;
 		  if(!fetching && scrollHeight - scrollTop === clientHeight) {
 			fetching = true
-			if(activeTab==1 && hasNextPage) await fetchNextPage()
-			if(activeTab==2 && myHasNextPage) await myFetchNextPage()
+			if(activeTab==1 && hasNextPage){
+				await fetchNextPage();
+			} 
+			if(activeTab==2 && myHasNextPage){
+				await myFetchNextPage();
+			} 
 			fetching = false
 		  }
 		}
@@ -57,7 +64,7 @@ export const PostsList = ({ activeTab }) => {
 		return () => {
 		  document.removeEventListener('scroll', handleScroll)
 		}
-	  }, [fetchNextPage, hasNextPage])
+	  }, [fetchNextPage, hasNextPage,activeTab])
 
 
 	return (
