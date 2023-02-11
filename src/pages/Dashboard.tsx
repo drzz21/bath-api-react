@@ -2,8 +2,8 @@ import React, { useRef,useState,useContext } from 'react';
 import { Navbar } from '../components/Navbar';
 import { PostsList } from '../components/PostsList';
 import { AuthContext } from '../App';
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
-import { loginFn, myInfoFn } from '../axios/api';
+import { useQuery } from '@tanstack/react-query';
+import {  myInfoFn } from '../axios/api';
 
 export const Dashboard = () => {
 	const tabRef = useRef(null);
@@ -20,7 +20,7 @@ export const Dashboard = () => {
 	};
 
 	const myInfoQuery = useQuery({
-		queryKey: ['todos'],
+		queryKey: ['my-info'],
 		queryFn: ()=>myInfoFn(token),
 		onSuccess: (user) => {
 			setActualUser(user);

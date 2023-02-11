@@ -1,7 +1,7 @@
 import React, { useRef, useContext } from 'react';
 import { AuthContext } from '../App';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { loginFn, myInfoFn } from '../axios/api';
+import { useMutation } from '@tanstack/react-query';
+import { loginFn } from '../axios/api';
 import { Link  } from 'react-router-dom';
 
 export const Login = () => {

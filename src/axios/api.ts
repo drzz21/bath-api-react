@@ -41,7 +41,7 @@ export const getAllPostsFn = async (token, pageParam) => {
 export const getMyPostsFn = async (token, pageParam) => {
 	const response = await apiClient.get(`poops/get-mine?page=${pageParam}`, {
 		headers: {
-			'Content-Type': 'multipart/form-data',
+			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
 		},
 	});
