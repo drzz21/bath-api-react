@@ -2,6 +2,7 @@ import { ModalNewRecord } from './ModalNewRecord';
 import { Dropdown } from './Dropdown';
 import { NotificationsList } from './NotificationsList';
 import { ProfileOptions } from './ProfileOptions';
+import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
 	return (
@@ -9,7 +10,9 @@ export const Navbar = () => {
 			<div className="navbar bg-base-300 rounded-lg sticky top-0 z-20">
 				<div className="flex-1">
 					<a className="btn btn-ghost normal-case text-xl">
-						Bath API
+						<Link to="/">
+							Bath API
+						</Link>
 					</a>
 				</div>
 				<div className="flex-none">
@@ -36,7 +39,6 @@ export const Navbar = () => {
 						</svg>
 					</label>
 
-				
 					<ModalNewRecord />
 
 					<Dropdown>
@@ -46,7 +48,6 @@ export const Navbar = () => {
 					<Dropdown>
 						<ProfileOptions />
 					</Dropdown>
-
 				</div>
 			</div>
 		</>
